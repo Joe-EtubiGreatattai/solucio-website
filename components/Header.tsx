@@ -12,14 +12,12 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-warm-50/90 backdrop-blur border-b border-primary-100">
       <div className="bg-accent-700 text-white text-sm">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 flex items-center justify-between py-1.5">
-          <span className="hidden sm:inline">
-            24/7 Emergency: {site.phoneEmergency}
-          </span>
+          <span className="hidden sm:inline">24/7 Emergency</span>
           <a
             href={site.phoneEmergencyHref}
             className="font-semibold underline underline-offset-2 sm:no-underline sm:font-normal"
           >
-            Call now
+            Call {site.phoneEmergency}
           </a>
         </div>
       </div>

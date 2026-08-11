@@ -3,10 +3,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/data/site";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-warm-50/90 backdrop-blur border-b border-primary-100">
@@ -40,7 +46,12 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-warm-900/80 hover:text-primary-700 font-medium transition-colors"
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={
+                  isActive(link.href)
+                    ? "text-primary-900 font-semibold underline underline-offset-4 transition-colors"
+                    : "text-warm-900/80 hover:text-primary-700 font-medium transition-colors"
+                }
               >
                 {link.label}
               </Link>
@@ -76,7 +87,12 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-warm-900/80 font-medium"
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={
+                  isActive(link.href)
+                    ? "text-primary-900 font-semibold underline underline-offset-4"
+                    : "text-warm-900/80 font-medium"
+                }
                 onClick={() => setOpen(false)}
               >
                 {link.label}

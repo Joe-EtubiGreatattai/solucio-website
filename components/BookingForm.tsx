@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { departments } from "@/lib/data/departments";
+import { site } from "@/lib/data/site";
 
 const timeSlots = [
   "Morning (8AM - 12PM)",
@@ -29,9 +30,32 @@ export default function BookingForm() {
           Thank you — your request has been received
         </h3>
         <p className="mt-3 text-warm-900/70">
-          You will receive a confirmation email shortly after booking. If your
-          need is urgent, please call our 24/7 emergency line instead.
+          This form is not yet connected to our booking system. To confirm
+          your appointment, please call us on{" "}
+          <a
+            href={site.phoneEmergencyHref}
+            className="font-semibold text-primary-700 underline hover:text-primary-900"
+          >
+            {site.phoneEmergency}
+          </a>{" "}
+          or message us on{" "}
+          <a
+            href={site.whatsappHref}
+            className="font-semibold text-primary-700 underline hover:text-primary-900"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
+          .
         </p>
+        <button
+          type="button"
+          onClick={() => setSubmitted(false)}
+          className="mt-6 rounded-full bg-primary-700 px-6 py-2.5 font-semibold text-white hover:bg-primary-800 transition-colors"
+        >
+          Book another appointment
+        </button>
       </div>
     );
   }
@@ -121,6 +145,7 @@ export default function BookingForm() {
               name="date"
               type="date"
               required
+              min={new Date().toISOString().split("T")[0]}
               className="w-full rounded-lg border border-primary-200 px-4 py-2.5 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
             />
           </div>
@@ -167,7 +192,21 @@ export default function BookingForm() {
         Book Appointment
       </button>
       <p className="text-center text-sm text-warm-900/60">
-        You will receive a confirmation email shortly after booking.
+        This form is not yet connected to our booking system. To confirm your
+        appointment, please call us on{" "}
+        <a href={site.phoneEmergencyHref} className="font-medium text-primary-700 underline">
+          {site.phoneEmergency}
+        </a>{" "}
+        or message us on{" "}
+        <a
+          href={site.whatsappHref}
+          className="font-medium text-primary-700 underline"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WhatsApp
+        </a>
+        .
       </p>
     </form>
   );

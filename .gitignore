@@ -42,3 +42,6 @@ next-env.d.ts
 
 # superpowers workspace
 .superpowers/
+
+# one-time asset staging area (already copied into public/images)
+/assets-source/

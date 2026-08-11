@@ -3,6 +3,8 @@ import Link from "next/link";
 import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import CtaBanner from "@/components/CtaBanner";
+import FacilityCard from "@/components/FacilityCard";
+import DepartmentCard from "@/components/DepartmentCard";
 import { site } from "@/lib/data/site";
 import { departments } from "@/lib/data/departments";
 import { facilities } from "@/lib/data/facilities";
@@ -68,13 +70,7 @@ export default function HomePage() {
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredDepartments.map((dept) => (
-              <div
-                key={dept.slug}
-                className="rounded-2xl border border-primary-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <h3 className="text-xl font-bold text-primary-900">{dept.name}</h3>
-                <p className="mt-3 text-warm-900/70 leading-relaxed">{dept.summary}</p>
-              </div>
+              <DepartmentCard key={dept.slug} department={dept} />
             ))}
           </div>
           <div className="mt-10 text-center">
@@ -129,21 +125,7 @@ export default function HomePage() {
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredFacilities.map((facility) => (
-              <div key={facility.slug} className="rounded-2xl overflow-hidden shadow-sm">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src={facility.image}
-                    alt={facility.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-                <div className="p-4 bg-white">
-                  <h3 className="font-bold text-primary-900">{facility.name}</h3>
-                  <p className="mt-1 text-sm text-warm-900/70">{facility.description}</p>
-                </div>
-              </div>
+              <FacilityCard key={facility.slug} facility={facility} />
             ))}
           </div>
           <div className="mt-10 text-center">

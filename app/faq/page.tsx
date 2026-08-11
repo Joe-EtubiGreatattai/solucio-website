@@ -15,7 +15,7 @@ export default function FaqPage() {
   return (
     <>
       <section className="py-16 lg:py-20">
-        <Container className="max-w-3xl">
+        <Container maxWidth="3xl">
           <SectionHeading
             eyebrow="Frequently Asked Questions"
             title="Have a question?"

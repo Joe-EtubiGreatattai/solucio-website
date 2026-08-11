@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function BookPage() {
   return (
     <section className="py-16 lg:py-20 bg-primary-50">
-      <Container className="max-w-2xl">
+      <Container maxWidth="2xl">
         <SectionHeading eyebrow="Appointments" title="Book an Appointment" />
         <BookingForm />
       </Container>

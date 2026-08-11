@@ -52,6 +52,7 @@ export default function HomePage() {
               alt="Solucio Clinic operating theatre"
               fill
               className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
               priority
             />
           </div>
@@ -135,6 +136,7 @@ export default function HomePage() {
                     alt={facility.name}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
                 <div className="p-4 bg-white">

@@ -5,7 +5,13 @@ export default function FacilityCard({ facility }: { facility: Facility }) {
   return (
     <article className="rounded-2xl overflow-hidden border border-primary-100 bg-white shadow-sm">
       <div className="relative aspect-[4/3]">
-        <Image src={facility.image} alt={facility.name} fill className="object-cover" />
+        <Image
+          src={facility.image}
+          alt={facility.name}
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
       </div>
       <div className="p-5">
         <h3 className="font-bold text-primary-900">{facility.name}</h3>

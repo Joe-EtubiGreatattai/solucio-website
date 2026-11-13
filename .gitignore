@@ -49,3 +49,6 @@ next-env.d.ts
 # internal finance tool: kept local, not part of the public website
 /app/finance/
 /components/StatementReviewWorkspace.tsx
+
+# example env file is safe to commit
+!.env.example

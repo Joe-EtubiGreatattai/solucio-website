@@ -30,6 +30,12 @@ export default function BookingForm() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [ref, setRef] = useState("");
+  const [emailed, setEmailed] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [website, setWebsite] = useState(""); // hidden from people; bots fill it in
 
   useEffect(() => {
     if (initialDept) {
@@ -61,13 +67,36 @@ export default function BookingForm() {
     }
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    if (!formData.fullName.trim() || !formData.phone.trim() || !formData.email.trim()) {
-      alert("Please fill in your contact information.");
-      return;
+    setSending(true);
+    setError("");
+    setFieldErrors({});
+    try {
+      const slot = timeSlots.find((t) => t.label === formData.timeSlot)?.id ?? "morning";
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, timeSlot: slot, website }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setFieldErrors(data.fields || {});
+        setError(data.error || "Something went wrong. Please call or WhatsApp us.");
+        // Go back to the step that has the problem
+        const f = Object.keys(data.fields || {});
+        if (f.some((k) => ["department", "reason"].includes(k))) setStep(1);
+        else if (f.some((k) => ["date", "timeSlot"].includes(k))) setStep(2);
+        return;
+      }
+      setRef(data.ref);
+      setEmailed(Boolean(data.emailed));
+      setSubmitted(true);
+    } catch {
+      setError("You seem to be offline. Please call or WhatsApp us instead.");
+    } finally {
+      setSending(false);
     }
-    setSubmitted(true);
   }
 
   const whatsappMsg = encodeURIComponent(
@@ -91,10 +120,12 @@ export default function BookingForm() {
           ✓
         </div>
         <h3 className="text-2xl font-extrabold text-primary-900 text-center">
-          Appointment Request Submitted
+          Request received
         </h3>
+        <p className="mt-2 text-center text-sm font-bold tracking-wider text-primary-800">REFERENCE {ref}</p>
         <p className="mt-3 text-center text-warm-900 leading-relaxed text-sm sm:text-base">
-          To confirm your preferred slot instantly, please send your appointment details to our receptionist on WhatsApp or call our line.
+          Our front desk will call you on {formData.phone} to confirm the exact time.{emailed ? ` We’ve emailed a copy to ${formData.email}.` : ""}
+          You can <a href="/book/status" className="underline font-bold">check your request</a> any time with your reference and phone number.
         </p>
 
         {/* Appointment Summary Box */}
@@ -127,7 +158,7 @@ export default function BookingForm() {
             rel="noopener noreferrer"
             className="flex-1 rounded-full bg-primary-800 px-6 py-3.5 text-center font-bold text-white hover:bg-primary-900 transition-colors"
           >
-            Send Details via WhatsApp
+            Also send on WhatsApp
           </a>
 
           <a
@@ -143,6 +174,7 @@ export default function BookingForm() {
             type="button"
             onClick={() => {
               setSubmitted(false);
+              setRef("");
               setStep(1);
             }}
             className="text-xs font-bold text-primary-800 underline hover:text-black"
@@ -186,6 +218,15 @@ export default function BookingForm() {
           </div>
         ))}
       </div>
+
+      {(error || Object.keys(fieldErrors).length > 0) && (
+        <div role="alert" className="mb-6 border-l-4 border-accent-700 bg-accent-50 px-4 py-3 text-sm text-accent-800">
+          <p className="font-bold">{error}</p>
+          {Object.values(fieldErrors).length > 0 && (
+            <ul className="mt-1 list-disc pl-5">{Object.values(fieldErrors).map((m) => <li key={m}>{m}</li>)}</ul>
+          )}
+        </div>
+      )}
 
       {/* Step 1: Department & Reason */}
       {step === 1 && (
@@ -350,6 +391,10 @@ export default function BookingForm() {
             </div>
           </div>
 
+          <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+            <label>Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} /></label>
+          </div>
+
           <div className="flex gap-4 pt-2">
             <button
               type="button"
@@ -360,9 +405,10 @@ export default function BookingForm() {
             </button>
             <button
               type="submit"
-              className="flex-1 rounded-full bg-primary-800 px-6 py-3.5 font-bold text-white hover:bg-primary-900 transition-colors"
+              disabled={sending}
+              className="flex-1 rounded-full bg-primary-800 px-6 py-3.5 font-bold text-white hover:bg-primary-900 transition-colors disabled:opacity-60"
             >
-              Submit & Confirm Booking Request
+              {sending ? "Sending…" : "Send booking request"}
             </button>
           </div>
         </form>

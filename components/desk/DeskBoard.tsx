@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { slotLabel, TIME_SLOTS } from "@/lib/booking-rules";
 
 type Booking = {
@@ -21,8 +20,7 @@ const shortDate = (d: string) => new Date(`${d}T12:00:00Z`).toLocaleDateString("
 const when = (d: string) => new Date(d).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 const NAME_KEY = "solucio_desk_name";
 
-export default function DeskBoard({ emailOn }: { emailOn: boolean }) {
-  const router = useRouter();
+export default function DeskBoard({ emailOn, onSignedOut }: { emailOn: boolean; onSignedOut: () => void }) {
   const [tab, setTab] = useState<string>("new");
   const [q, setQ] = useState("");
   const [items, setItems] = useState<Booking[]>([]);
@@ -36,12 +34,12 @@ export default function DeskBoard({ emailOn }: { emailOn: boolean }) {
 
   const load = useCallback(async () => {
     const res = await fetch(`/api/desk/bookings?status=${tab}&q=${encodeURIComponent(q)}`, { cache: "no-store" });
-    if (res.status === 401) return router.refresh();
+    if (res.status === 401) return onSignedOut();
     const data = await res.json();
     setItems(data.items || []);
     setCounts(data.counts || {});
     setLoading(false);
-  }, [tab, q, router]);
+  }, [tab, q, onSignedOut]);
 
   useEffect(() => {
     const t = setTimeout(load, q ? 250 : 0);
@@ -51,7 +49,7 @@ export default function DeskBoard({ emailOn }: { emailOn: boolean }) {
 
   async function signOut() {
     await fetch("/api/desk/login", { method: "DELETE" });
-    router.refresh();
+    onSignedOut();
   }
 
   const total = Object.values(counts).reduce((a, b) => a + b, 0);

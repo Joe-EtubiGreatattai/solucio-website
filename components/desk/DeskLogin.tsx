@@ -1,13 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { useRouter } from "next/navigation";
 
-export default function DeskLogin({ configured }: { configured: boolean }) {
+export default function DeskLogin({ configured, onSignedIn }: { configured: boolean; onSignedIn: () => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const router = useRouter();
 
   async function signIn(e: FormEvent) {
     e.preventDefault();
@@ -17,7 +15,7 @@ export default function DeskLogin({ configured }: { configured: boolean }) {
     const data = await res.json().catch(() => ({}));
     setBusy(false);
     if (!res.ok) return setError(data.error || "Couldn’t sign in");
-    router.refresh();
+    onSignedIn();
   }
 
   return (

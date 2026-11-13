@@ -29,9 +29,8 @@ The site has its own backend (Next.js route handlers in `app/api/`), storing dat
   Checks: valid phone and email, a real department, Monday–Saturday, within 6 months.
   A hidden field catches bots, and each connection can send 5 requests per 15 minutes.
 - **`/book/status`** lets a patient check their request with the reference and their phone number.
-- **`/desk`** is the front desk (not linked from the site, hidden from search engines). Staff sign in with
-  `DESK_PASSWORD` and see new, contacted, confirmed, completed and cancelled requests, with call and
-  WhatsApp buttons, notes and a history of who did what.
+- **`/desk`** redirects staff to the EMR's **Reception → Online appointments** queue. Website requests keep
+  their booking reference and status page; reception manages the queue using their EMR sign-in.
 - **Email** (optional): with SMTP set up, the patient gets a receipt, a confirmation or a cancellation,
   and `CLINIC_EMAIL` gets an alert for each new request.
 
@@ -39,7 +38,7 @@ The site has its own backend (Next.js route handlers in `app/api/`), storing dat
 
 The backend runs on the Solucio server (`192.3.161.239`) as `solucio-website-api` (port 5104, behind nginx at
 `https://solucio-website.techtree.lifestyle/api`), with data in the server's MongoDB (`solucio_website`).
-Its settings are in `/var/www/solucio-website-api/.env` on the server (desk password, secret, email).
+Its settings are in `/var/www/solucio-website-api/.env` on the server (EMR integration key and email settings).
 
 The website itself stays on Vercel. `BOOKING_API_ORIGIN` (Vercel environment variable, and `.env.local`
 for local work) sends every `/api` request to the server, so the site never holds database or desk secrets.

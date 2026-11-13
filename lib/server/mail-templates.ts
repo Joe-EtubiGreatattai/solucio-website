@@ -7,6 +7,7 @@ type Opts = { clinicEmail: string; siteUrl: string };
 
 const CLINIC = "Solucio Specialist Clinic";
 const PHONE = "0706 681 9213";
+const EMR_APPOINTMENTS = "https://solucio-website.techtree.lifestyle/emr/reception/appointments";
 const longDate = (d: string) => new Date(`${d}T12:00:00Z`).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Africa/Lagos" });
 const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 const first = (n: string) => n.split(" ")[0];
@@ -42,7 +43,7 @@ export function messagesFor(event: "requested" | "confirm" | "cancel" | string, 
         `Department: ${b.department}${b.specialist ? ` (asked for ${b.specialist})` : ""}`,
         `Preferred: ${longDate(b.date)}, ${slotLabel(b.timeSlot)}`,
         `Reason: ${b.reason}`,
-        opts.siteUrl ? `Open the front desk: ${opts.siteUrl}/desk` : "",
+        `Open appointment requests in the EMR: ${EMR_APPOINTMENTS}`,
       ]));
     }
     return out;

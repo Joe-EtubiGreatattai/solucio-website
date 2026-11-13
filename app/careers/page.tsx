@@ -24,11 +24,12 @@ type JobOpening = {
   showSalary?: boolean;
 };
 
-const HR_ORIGIN = "https://solucio-hr.techtree.lifestyle";
+const HR_API_ORIGIN = "https://solucio-hr.techtree.lifestyle";
+const HR_CAREERS_ORIGIN = "https://solucio-hr-frontend.vercel.app";
 
 async function getOpenings(): Promise<JobOpening[] | null> {
   try {
-    const response = await fetch(`${HR_ORIGIN}/api/careers/jobs`, {
+    const response = await fetch(`${HR_API_ORIGIN}/api/careers/jobs`, {
       cache: "no-store",
       signal: AbortSignal.timeout(8000),
     });
@@ -120,7 +121,7 @@ export default async function CareersPage() {
                     )}
 
                     <a
-                      href={`${HR_ORIGIN}/careers/${encodeURIComponent(job._id)}`}
+                      href={`${HR_CAREERS_ORIGIN}/careers/${encodeURIComponent(job._id)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-7 inline-flex min-h-12 items-center justify-center gap-3 bg-[#172a20] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#294333]"

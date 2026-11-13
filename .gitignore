@@ -45,3 +45,7 @@ next-env.d.ts
 
 # one-time asset staging area (already copied into public/images)
 /assets-source/
+
+# internal finance tool: kept local, not part of the public website
+/app/finance/
+/components/StatementReviewWorkspace.tsx

@@ -2,57 +2,13 @@ import Link from "next/link";
 import { site } from "@/lib/data/site";
 
 export default function Footer() {
-  return (
-    <footer className="bg-primary-900 text-primary-50">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
-          <h3 className="text-lg font-bold text-white">{site.name}</h3>
-          <p className="mt-3 text-sm text-primary-200">{site.tagline}</p>
-        </div>
-
-        <div>
-          <h4 className="font-semibold text-white mb-3">Explore</h4>
-          <ul className="space-y-2 text-sm text-primary-200">
-            {site.navLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="hover:text-white">
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-semibold text-white mb-3">Contact</h4>
-          <ul className="space-y-2 text-sm text-primary-200">
-            <li>
-              <a href={site.phoneEmergencyHref} className="hover:text-white">
-                Emergency: {site.phoneEmergency}
-              </a>
-            </li>
-            <li>
-              <a href={site.whatsappHref} className="hover:text-white">
-                WhatsApp
-              </a>
-            </li>
-            <li>Outreach bookings: {site.outreachPhone}</li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="font-semibold text-white mb-3">Hours</h4>
-          <p className="text-sm text-primary-200">
-            Emergency care: 24/7
-            <br />
-            General consultation: Monday – Saturday
-          </p>
-        </div>
-      </div>
-
-      <div className="border-t border-primary-800 py-6 text-center text-xs text-primary-300">
-        © {new Date().getFullYear()} {site.name}. All rights reserved.
-      </div>
-    </footer>
-  );
+  return <footer className="site-footer">
+    <div className="site-footer__main">
+      <div><div className="site-footer__brand">SOLUCIO</div><p>Specialist care, delivered with clarity and compassion. Here for your health, every day.</p><a href={site.phoneEmergencyHref}>24/7 emergency · {site.phoneEmergency}</a></div>
+      <div><h4>Explore</h4><ul>{site.navLinks.filter((link)=>link.href!=="/").map((link)=><li key={link.href}><Link href={link.href}>{link.label}</Link></li>)}</ul></div>
+      <div><h4>Contact</h4><ul><li><a href={site.phoneEmergencyHref}>{site.phoneEmergency}</a></li><li><a href={site.whatsappHref} target="_blank" rel="noopener noreferrer">WhatsApp desk</a></li><li>Outreach: {site.outreachPhone}</li></ul></div>
+      <div><h4>Clinic hours</h4><ul><li>Emergency ward<br/>Open 24 hours, every day</li><li>Consultations<br/>Monday–Saturday · 8am–8pm</li></ul></div>
+    </div>
+    <div className="site-footer__bottom"><span>© {new Date().getFullYear()} Solucio Clinic. All rights reserved.</span><span>Solutions for your wellbeing.</span></div>
+  </footer>;
 }

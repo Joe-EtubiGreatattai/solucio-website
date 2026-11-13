@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import EmergencyFAB from "@/components/EmergencyFAB";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -22,12 +23,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${plusJakarta.variable} font-sans antialiased flex min-h-screen flex-col`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${plusJakarta.variable} font-sans antialiased flex min-h-screen flex-col bg-warm-50 text-warm-900`}>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <EmergencyFAB />
       </body>
     </html>
   );
 }
+

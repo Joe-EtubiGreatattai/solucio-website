@@ -1,32 +1,36 @@
 import Link from "next/link";
+import Container from "@/components/Container";
 import { site } from "@/lib/data/site";
 
 export default function CtaBanner() {
   return (
-    <section className="bg-primary-800 py-16">
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white">
-          Ready to visit Solucio Clinic?
+    <section className="clinic-cta py-16 bg-primary-900 text-white">
+      <Container className="max-w-3xl mx-auto">
+        <span className="section-overline text-primary-200 mb-4">READY WHEN YOU ARE</span>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight">
+          Your health deserves thoughtful care.
         </h2>
-        <p className="mt-3 text-primary-100 text-lg">
-          Book an appointment online, or call our 24/7 emergency line for
-          urgent care.
+        <p className="mt-4 text-base sm:text-lg text-primary-100 leading-relaxed max-w-xl">
+          Whether you require general healthcare, eye surgery, pediatric care, or emergency admission — Solucio Clinic is here for you 24/7.
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+
+        <div className="mt-8 flex flex-wrap gap-4 items-center">
           <Link
             href="/book"
-            className="rounded-full bg-white px-6 py-3 font-semibold text-primary-800 hover:bg-primary-50 transition-colors"
+            className="reference-button"
           >
-            Book Appointment
+            BOOK AN APPOINTMENT ↗
           </Link>
           <a
-            href={site.phoneEmergencyHref}
-            className="rounded-full border border-white/60 px-6 py-3 font-semibold text-white hover:bg-white/10 transition-colors"
+            href={site.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="reference-text-link text-white"
           >
-            Call {site.phoneEmergency}
+            WHATSAPP CONSULTATION ↗
           </a>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

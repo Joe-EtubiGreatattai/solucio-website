@@ -35,8 +35,15 @@ The site has its own backend (Next.js route handlers in `app/api/`), storing dat
 - **Email** (optional): with SMTP set up, the patient gets a receipt, a confirmation or a cancellation,
   and `CLINIC_EMAIL` gets an alert for each new request.
 
-Settings are in `.env.example`. Copy it to `.env.local` for local work, and add the same names in
-Vercel → Project → Settings → Environment Variables for the live site. `MONGODB_URI`, `DESK_PASSWORD`
-and `DESK_SECRET` are required.
+### Where it runs
+
+The backend runs on the Solucio server (`192.3.161.239`) as `solucio-website-api` (port 5104, behind nginx at
+`https://solucio-website.techtree.lifestyle/api`), with data in the server's MongoDB (`solucio_website`).
+Its settings are in `/var/www/solucio-website-api/.env` on the server (desk password, secret, email).
+
+The website itself stays on Vercel. `BOOKING_API_ORIGIN` (Vercel environment variable, and `.env.local`
+for local work) sends every `/api` request to the server, so the site never holds database or desk secrets.
+
+Update the server after committing: `deploy/deploy-api.sh`.
 
 Tests: `npm test` (needs a local MongoDB for the storage tests).

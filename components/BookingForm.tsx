@@ -30,6 +30,7 @@ export default function BookingForm() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [reviewing, setReviewing] = useState(false);
   const [ref, setRef] = useState("");
   const [emailed, setEmailed] = useState(false);
   const [sending, setSending] = useState(false);
@@ -67,6 +68,13 @@ export default function BookingForm() {
     }
   }
 
+  function handleReview(e: FormEvent) {
+    e.preventDefault();
+    setError("");
+    setFieldErrors({});
+    setReviewing(true);
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setSending(true);
@@ -85,12 +93,14 @@ export default function BookingForm() {
         setError(data.error || "Something went wrong. Please call or WhatsApp us.");
         // Go back to the step that has the problem
         const f = Object.keys(data.fields || {});
-        if (f.some((k) => ["department", "reason"].includes(k))) setStep(1);
-        else if (f.some((k) => ["date", "timeSlot"].includes(k))) setStep(2);
+        if (f.some((k) => ["department", "reason"].includes(k))) { setStep(1); setReviewing(false); }
+        else if (f.some((k) => ["date", "timeSlot"].includes(k))) { setStep(2); setReviewing(false); }
+        else if (f.some((k) => ["fullName", "email", "phone"].includes(k))) { setStep(3); setReviewing(false); }
         return;
       }
       setRef(data.ref);
       setEmailed(Boolean(data.emailed));
+      setReviewing(false);
       setSubmitted(true);
     } catch {
       setError("You seem to be offline. Please call or WhatsApp us instead.");
@@ -99,19 +109,41 @@ export default function BookingForm() {
     }
   }
 
-  const whatsappMsg = encodeURIComponent(
-    `Hello Solucio Clinic, I would like to schedule an appointment.\n\n` +
-      `Patient Name: ${formData.fullName}\n` +
-      `Phone: ${formData.phone}\n` +
-      `Email: ${formData.email}\n` +
-      `Department: ${formData.department}\n` +
-      (formData.specialist ? `Specialist: ${formData.specialist}\n` : "") +
-      `Preferred Date: ${formData.date}\n` +
-      `Preferred Time: ${formData.timeSlot}\n` +
-      `Reason for Visit: ${formData.reason}`
-  );
+  if (reviewing && !submitted) {
+    return (
+      <div className="rounded-3xl border-2 border-primary-200 bg-white p-8 sm:p-10 shadow-lg">
+        <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-primary-700">Review before submitting</p>
+        <h3 className="mt-2 text-2xl font-extrabold text-primary-900 text-center">Appointment details</h3>
+        <p className="mt-3 text-center text-sm text-warm-800">Check your details, then submit your request to clinic reception.</p>
 
-  const whatsappUrl = `https://wa.me/2347066819213?text=${whatsappMsg}`;
+        <div className="mt-6 rounded-2xl bg-warm-50 p-6 border border-primary-200 text-sm space-y-3 text-warm-900">
+          <SummaryRow label="Patient Name" value={formData.fullName} />
+          <SummaryRow label="Department" value={formData.department} />
+          {formData.specialist && <SummaryRow label="Specialist" value={formData.specialist} />}
+          <SummaryRow label="Preferred Date & Time" value={`${formData.date} (${formData.timeSlot})`} />
+          <SummaryRow label="Phone Number" value={formData.phone} />
+          <SummaryRow label="Email Address" value={formData.email} />
+          <SummaryRow label="Reason for Visit" value={formData.reason} />
+        </div>
+
+        {(error || Object.keys(fieldErrors).length > 0) && (
+          <div role="alert" className="mt-5 border-l-4 border-accent-700 bg-accent-50 px-4 py-3 text-sm text-accent-800">
+            <p className="font-bold">{error}</p>
+            {Object.values(fieldErrors).length > 0 && <ul className="mt-1 list-disc pl-5">{Object.values(fieldErrors).map((m) => <li key={m}>{m}</li>)}</ul>}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="mt-8 flex flex-col-reverse gap-4 sm:flex-row">
+          <button type="button" onClick={() => setReviewing(false)} className="rounded-full border-2 border-primary-800 bg-white px-6 py-3.5 text-center font-bold text-primary-900 hover:bg-primary-50">
+            Edit details
+          </button>
+          <button type="submit" disabled={sending} className="flex-1 rounded-full bg-primary-800 px-6 py-3.5 text-center font-bold text-white hover:bg-primary-900 transition-colors disabled:opacity-60">
+            {sending ? "Submitting…" : "Submit Appointment Request"}
+          </button>
+        </form>
+      </div>
+    );
+  }
 
   if (submitted) {
     return (
@@ -150,17 +182,14 @@ export default function BookingForm() {
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* The request is already submitted; these actions won't submit it again. */}
         <div className="mt-8 flex flex-col sm:flex-row gap-4">
           <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/book/status"
             className="flex-1 rounded-full bg-primary-800 px-6 py-3.5 text-center font-bold text-white hover:bg-primary-900 transition-colors"
           >
-            Also send on WhatsApp
+            Check request status
           </a>
-
           <a
             href={site.phoneEmergencyHref}
             className="rounded-full border-2 border-primary-800 bg-white px-6 py-3.5 text-center font-bold text-primary-900 hover:bg-primary-50 transition-colors"
@@ -174,6 +203,7 @@ export default function BookingForm() {
             type="button"
             onClick={() => {
               setSubmitted(false);
+              setReviewing(false);
               setRef("");
               setStep(1);
             }}
@@ -340,7 +370,7 @@ export default function BookingForm() {
 
       {/* Step 3: Patient Information */}
       {step === 3 && (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleReview} className="space-y-6">
           <div>
             <label htmlFor="fullName" className="block text-sm font-bold text-primary-900 mb-2">
               Full Name *
@@ -408,11 +438,20 @@ export default function BookingForm() {
               disabled={sending}
               className="flex-1 rounded-full bg-primary-800 px-6 py-3.5 font-bold text-white hover:bg-primary-900 transition-colors disabled:opacity-60"
             >
-              {sending ? "Sending…" : "Send booking request"}
+              "Review appointment request"
             </button>
           </div>
         </form>
       )}
+    </div>
+  );
+}
+
+function SummaryRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex justify-between gap-4 border-b border-warm-200 pb-2 last:border-0 last:pb-0">
+      <span className="shrink-0 font-semibold text-warm-800">{label}:</span>
+      <span className="text-right font-bold text-primary-900">{value}</span>
     </div>
   );
 }

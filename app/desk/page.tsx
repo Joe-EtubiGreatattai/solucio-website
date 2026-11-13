@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Container from "@/components/Container";
-import DeskGate from "@/components/desk/DeskGate";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Front desk — Solucio Clinic",
@@ -8,11 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function DeskPage() {
-  return (
-    <section className="py-12 lg:py-16 bg-warm-50 min-h-[70vh]">
-      <Container>
-        <DeskGate />
-      </Container>
-    </section>
-  );
+  redirect("https://solucio-website.techtree.lifestyle/emr/reception/appointments");
 }

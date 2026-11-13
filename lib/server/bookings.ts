@@ -92,9 +92,10 @@ export async function counts() {
 }
 
 export async function updateBooking(id: string, change: DeskAction, by: string): Promise<Booking | null> {
-  if (!ObjectId.isValid(id)) throw new BookingError("Request not found", 404);
   const col = await bookings();
-  const b = await col.findOne({ _id: new ObjectId(id) });
+  const b = ObjectId.isValid(id)
+    ? await col.findOne({ _id: new ObjectId(id) })
+    : await col.findOne({ ref: String(id).trim().toUpperCase() });
   if (!b) throw new BookingError("Request not found", 404);
   if (b.status === "cancelled" && change.action !== "note") throw new BookingError("This request was cancelled", 409);
   if (b.status === "completed" && change.action !== "note") throw new BookingError("This visit is already completed", 409);

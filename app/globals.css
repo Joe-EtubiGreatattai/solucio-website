@@ -104,6 +104,43 @@ main button.rounded-full { border-radius:2px; }
 main .grid>article { transition:transform .2s ease,border-color .2s ease; }
 main .grid>article:hover { transform:translateY(-2px);border-color:#9cac9f; }
 
+/* Departments page: same editorial card as the home page's specialists */
+.dept-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px; }
+.dept-card { min-width:0;padding:26px 26px 20px;background:#fff;border:1px solid #e0e4df;display:flex;flex-direction:column;transition:border-color .2s ease,transform .2s ease; }
+.dept-card:hover { border-color:#9cac9f;transform:translateY(-2px); }
+.dept-card__top { display:flex;justify-content:space-between;gap:16px;color:#617468;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em; }
+.dept-card h3 { margin:30px 0 12px;color:#18231c;font-size:clamp(22px,2.1vw,28px);font-weight:600;line-height:1.08;letter-spacing:-.05em; }
+.dept-card__summary { margin:0;color:#5d6760;font-size:13px;line-height:1.55; }
+.dept-card__services { list-style:none;margin:22px 0 0;padding:0;border-top:1px solid #e8ebe7; }
+.dept-card__services li { padding:9px 0;border-bottom:1px solid #eef0ed;color:#28332c;font-size:13px;line-height:1.4;padding-left:15px;text-indent:-15px; }
+.dept-card__services li::before { content:"";display:inline-block;width:5px;height:5px;margin:0 10px 2px 0;background:#8fa596; }
+.dept-card__more { border-bottom:0!important; }
+.dept-card__more::before { display:none!important; }
+.dept-card__more button,.dept-card__actions button { padding:0;border:0;background:none;cursor:pointer;color:#425b4a;font:inherit; }
+.dept-card__more button { font-size:12px;font-weight:700; }
+.dept-card__note { margin:22px 0 0;padding:14px 0 0;border-top:1px solid #e8ebe7;color:#6b756f;font-size:13px;line-height:1.55;font-style:italic; }
+.dept-card__actions { margin-top:auto;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #e8ebe7; }
+.dept-card__services,.dept-card__note { margin-bottom:24px!important; }
+.dept-card__actions>* { font-size:10px!important;font-weight:700!important;letter-spacing:.075em;text-transform:uppercase;text-decoration:none; }
+.dept-card__actions a { color:#18231c;white-space:nowrap; }
+.dept-card__actions span { margin-left:5px;font-size:13px; }
+.dept-card__actions a:hover,.dept-card__actions button:hover { color:#5c7667; }
+.dept-modal { position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,18,14,.72); }
+.dept-modal__panel { position:relative;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;padding:clamp(26px,4vw,44px);background:#f8f8f6; }
+.dept-modal__close { position:absolute;top:18px;right:18px;width:38px;height:38px;border:1px solid #cfd6d0;background:#fff;cursor:pointer;color:#202722; }
+.dept-modal .section-overline { text-transform:uppercase; }
+.dept-modal h3 { margin:0;color:#17201b;font-size:clamp(30px,4vw,44px);font-weight:650;letter-spacing:-.07em;line-height:1; }
+.dept-modal__summary { margin:16px 0 0;color:#5d6760;font-size:14px;line-height:1.7;max-width:520px; }
+.dept-modal__list { list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:24px;border-top:1px solid #dfe3df; }
+.dept-modal__list li { display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #e4e7e3;color:#202722;font-size:14px;line-height:1.4; }
+.dept-modal__list li span { color:#8fa596;font-size:11px;font-weight:700;padding-top:2px; }
+.dept-modal__actions { margin-top:28px;display:flex;align-items:center;justify-content:flex-end;gap:22px; }
+.dept-modal__actions>button { border:0;background:none;cursor:pointer;color:#535b56;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase; }
+.dept-modal__book { background:#172a20!important;color:#fff!important; }
+.dept-modal__book:hover { background:#2a4234!important; }
+@media(max-width:1000px){ .dept-grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media(max-width:600px){ .dept-grid{grid-template-columns:1fr;gap:10px} .dept-card{padding:22px 21px 18px} .dept-card h3{margin-top:22px} .dept-modal__list{grid-template-columns:1fr} .dept-modal__actions{flex-direction:column-reverse;align-items:stretch} }
+
 .site-footer { background:#111b15;color:#f5f6f4; }
 .site-footer__main { max-width:1440px;margin:auto;padding:72px clamp(22px,5.4vw,80px) 58px;display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:46px; }
 .site-footer__brand { font-size:22px;font-weight:800;letter-spacing:-.07em; }

@@ -106,9 +106,9 @@ export default function DepartmentsPageClient() {
 
         {/* Results Grid */}
         {filteredDepartments.length > 0 ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="dept-grid">
             {filteredDepartments.map((dept) => (
-              <DepartmentCard key={dept.slug} department={dept} />
+              <DepartmentCard key={dept.slug} department={dept} index={departments.indexOf(dept)} />
             ))}
           </div>
         ) : (

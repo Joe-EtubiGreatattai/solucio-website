@@ -167,3 +167,22 @@ main .grid>article:hover { transform:translateY(-2px);border-color:#9cac9f; }
 .home-location__facts a { color:inherit;text-decoration:underline;text-underline-offset:3px; }
 .home-location__actions { display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px; }
 @media(max-width:700px){ .home-location__facts{grid-template-columns:1fr;gap:18px} }
+
+/* Location & directions page */
+.location-hero { padding:clamp(90px,11vw,140px) 0 clamp(28px,4vw,44px);background:#13231b;color:#fff; }
+.location-hero .section-overline { color:#b9d0c0; }
+.location-hero h1 { margin:0 0 20px;font-size:clamp(38px,6vw,76px);line-height:.98;letter-spacing:-.04em;font-weight:650;max-width:18ch; }
+.location-hero p { margin:0;max-width:60ch;color:#cbd4ce;font-size:16px;line-height:1.7; }
+.location-main { padding:clamp(40px,6vw,72px) 0 clamp(80px,10vw,120px);background:#f4efe8;color:#223027; }
+.location-main__grid { display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(24px,4vw,56px);align-items:start; }
+.location-map { aspect-ratio:4/3;width:100%;border-radius:18px;overflow:hidden;border:1px solid #22302714;background:#e7e0d6; }
+.location-map iframe { display:block;border:0;filter:grayscale(.1); }
+.location-details > div { padding-bottom:26px;margin-bottom:26px;border-bottom:1px solid #22302714; }
+.location-details h2 { margin:0 0 10px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5c7667; }
+.location-details p { margin:0 0 18px;font-size:17px;line-height:1.5; }
+.location-contact, .location-hours { list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px; }
+.location-contact li, .location-hours li { display:flex;justify-content:space-between;gap:16px;font-size:15px; }
+.location-contact span:first-child, .location-hours span:first-child { color:#5c7667; }
+.location-contact a { color:#223027;font-weight:600;text-decoration:underline;text-underline-offset:3px; }
+.location-hours span:last-child { text-align:right;color:#223027; }
+@media(max-width:820px){ .location-main__grid{grid-template-columns:1fr} .location-map{aspect-ratio:16/11} }

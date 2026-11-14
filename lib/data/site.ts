@@ -66,6 +66,7 @@ export const site = {
     { label: "Home", href: "/" },
     { label: "Departments", href: "/departments" },
     { label: "Facilities", href: "/facilities" },
+    { label: "Location", href: "/location" },
     { label: "Team", href: "/team" },
     { label: "Careers", href: "/careers" },
     { label: "Gallery", href: "/gallery" },

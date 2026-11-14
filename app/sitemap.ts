@@ -7,6 +7,7 @@ const routes: { path: string; priority: number; changeFrequency: MetadataRoute.S
   { path: "/departments", priority: 0.9, changeFrequency: "monthly" },
   { path: "/book", priority: 0.9, changeFrequency: "monthly" },
   { path: "/facilities", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/location", priority: 0.8, changeFrequency: "yearly" },
   { path: "/team", priority: 0.7, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.7, changeFrequency: "monthly" },
   { path: "/gallery", priority: 0.6, changeFrequency: "monthly" },

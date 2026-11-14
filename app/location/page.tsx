@@ -85,6 +85,22 @@ export default function LocationPage() {
           </aside>
         </Container>
       </section>
+
+      <section className="location-facts">
+        <Container>
+          <span className="section-overline">AT A GLANCE</span>
+          <h2>Quick facts about Solucio Clinic</h2>
+          <ul>
+            <li><strong>What it is:</strong> Solucio Clinic is a consultant-led private hospital in {site.city}, {site.region}, Nigeria.</li>
+            <li><strong>Where:</strong> {fullAddress}.</li>
+            <li><strong>Emergency:</strong> The emergency ward is open 24 hours, every day. Call {site.phoneEmergency}.</li>
+            <li><strong>Consultations:</strong> Monday to Saturday, 8am–8pm.</li>
+            <li><strong>Specialties:</strong> general surgery, ophthalmology and eye surgery, paediatric surgery, urology, plastic surgery, ENT, orthopaedic surgery and gynaecological surgery.</li>
+            <li><strong>Also:</strong> comprehensive wellness checks, inpatient wards, operating theatres, laboratory and pharmacy. HMOs accepted (Leadway, AXA Mansard, Bastion, Indigo and others).</li>
+            <li><strong>Consultants:</strong> Fellows of the National and West African Colleges of Surgeons.</li>
+          </ul>
+        </Container>
+      </section>
     </>
   );
 }

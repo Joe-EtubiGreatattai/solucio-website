@@ -186,3 +186,11 @@ main .grid>article:hover { transform:translateY(-2px);border-color:#9cac9f; }
 .location-contact a { color:#223027;font-weight:600;text-decoration:underline;text-underline-offset:3px; }
 .location-hours span:last-child { text-align:right;color:#223027; }
 @media(max-width:820px){ .location-main__grid{grid-template-columns:1fr} .location-map{aspect-ratio:16/11} }
+
+/* Quick facts (location page) */
+.location-facts { padding:clamp(60px,8vw,100px) 0;background:#fff;color:#223027;border-top:1px solid #22302714; }
+.location-facts h2 { margin:0 0 26px;font-size:clamp(30px,4.5vw,48px);line-height:1.02;letter-spacing:-.035em;font-weight:650; }
+.location-facts ul { list-style:none;margin:0;padding:0;display:grid;gap:14px;max-width:760px; }
+.location-facts li { font-size:16px;line-height:1.6;color:#43524a;padding-left:18px;position:relative; }
+.location-facts li::before { content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:#5c7667; }
+.location-facts strong { color:#223027;font-weight:650; }

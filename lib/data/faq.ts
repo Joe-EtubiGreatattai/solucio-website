@@ -2,6 +2,26 @@ export type FaqItem = { question: string; answer: string };
 
 export const faq: FaqItem[] = [
   {
+    question: "Is there a good hospital in Lokoja?",
+    answer:
+      "Yes. Solucio Clinic is a consultant-led private hospital in Lokoja, Kogi State, offering specialist surgery, ophthalmology, paediatric surgery, urology, ENT, orthopaedics and 24-hour emergency care. It is on Kabba Road, Lokongoma Housing Estate (Ankuri Layout), opposite Phase 2, Lokoja. Call 0706 681 9213.",
+  },
+  {
+    question: "Is there a 24-hour hospital in Lokoja?",
+    answer:
+      "Yes. The emergency ward at Solucio Clinic in Lokoja is open 24 hours, every day. For emergencies, call 0706 681 9213 at any time or come straight to the hospital on Kabba Road, Lokongoma Housing Estate, opposite Phase 2, Lokoja, Kogi State.",
+  },
+  {
+    question: "Where can I get eye surgery or cataract surgery in Lokoja?",
+    answer:
+      "Solucio Clinic in Lokoja has a consultant ophthalmologist who performs cataract extraction, trabeculectomy for glaucoma, and oculoplastic procedures such as squint and ptosis surgery. Book on 0706 681 9213 or at https://solucio-website.vercel.app/book.",
+  },
+  {
+    question: "Where is Solucio Clinic located in Lokoja?",
+    answer:
+      "Solucio Clinic is at Ankuri Layout, Lokongoma Housing Estate, Kabba Road, opposite Phase 2, Lokoja, Kogi State, Nigeria. Directions and a map are at https://solucio-website.vercel.app/location.",
+  },
+  {
     question: "What services does Solucio Clinic provide?",
     answer:
       "Solucio Clinic provides comprehensive medical care including general checkups, specialized treatments, emergency services, diagnostics, and wellness programs tailored to your health needs.",

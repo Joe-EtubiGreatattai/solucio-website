@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { ArrowUpRight, BriefcaseBusiness, CalendarDays, MapPin } from "lucide-react";
 import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 
-export const metadata: Metadata = {
-  title: "Careers — Solucio Specialist Clinic",
-  description:
-    "Explore current job openings at Solucio Specialist Clinic and apply through our careers portal.",
-};
+export const metadata: Metadata = pageMeta({
+  title: 'Careers',
+  description: 'Work at Solucio Clinic, a growing private hospital in Lokoja, Kogi State. See current openings for doctors, nurses and healthcare staff.',
+  path: '/careers',
+})
 
 type JobOpening = {
   _id: string;

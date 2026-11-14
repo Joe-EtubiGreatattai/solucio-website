@@ -1,15 +1,16 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import BookingForm from "@/components/BookingForm";
 import { site } from "@/lib/data/site";
 
-export const metadata: Metadata = {
-  title: "Book an Appointment — Solucio Clinic",
-  description:
-    "Schedule your medical consultation or specialist surgical visit online with Solucio Clinic.",
-};
+export const metadata: Metadata = pageMeta({
+  title: 'Book an Appointment',
+  description: 'Book an appointment at Solucio Clinic, a hospital in Lokoja, Kogi State. Pick a department and request a time online, or call us.',
+  path: '/book',
+})
 
 export default function BookPage() {
   return (

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import FacilityCard from "@/components/FacilityCard";
-import { site } from "@/lib/data/site";
+import { fullAddress, site } from "@/lib/data/site";
 import { departments } from "@/lib/data/departments";
 import { facilities } from "@/lib/data/facilities";
 
@@ -19,9 +19,9 @@ export default function HomePage() {
       </video>
       <div className="xray-hero__veil" />
       <Container className="xray-hero__content">
-        <p className="xray-hero__eyebrow">SOLUCIO CLINIC <span>·</span> SPECIALIST CARE IN LAGOS</p>
+        <p className="xray-hero__eyebrow">SOLUCIO CLINIC <span>·</span> HOSPITAL IN LOKOJA, KOGI STATE</p>
         <h1 id="hero-title">CARE THAT<br />SEES THE<br />WHOLE YOU.</h1>
-        <p className="xray-hero__intro">Consultant-led medicine. Thoughtful people.<br className="hidden sm:block" /> Care that moves with you, from diagnosis to recovery.</p>
+        <p className="xray-hero__intro">A consultant-led hospital in Lokoja, Kogi State.<br className="hidden sm:block" /> Specialist care that moves with you, from diagnosis to recovery.</p>
         <div className="xray-hero__actions">
           <Link href="/book" className="reference-button">BOOK AN APPOINTMENT <span>↗</span></Link>
           <Link href="/departments" className="reference-text-link">EXPLORE OUR CARE <span>↗</span></Link>
@@ -39,6 +39,28 @@ export default function HomePage() {
     <section className="home-services"><Container><div className="home-services__heading"><div><span className="section-overline">SPECIALIST SERVICES</span><h2>Expert care, all<br />under one roof.</h2></div><Link href="/departments" className="underlined-link">VIEW ALL DEPARTMENTS <span>↗</span></Link></div><div className="specialist-grid">{featuredDepartments.map((dept)=><article className="specialist-card" key={dept.slug}><div className="specialist-card__top"><span>{dept.services.length ? `${dept.services.length} procedures` : "Consultant-led team"}</span><span className="specialist-card__mark" aria-hidden="true">↗</span></div><h3>{dept.name}</h3><p>{dept.summary}</p><div className="specialist-card__actions"><Link href="/departments">EXPLORE DEPARTMENT</Link><Link href={`/book?department=${encodeURIComponent(dept.name)}`}>BOOK A VISIT <span>↗</span></Link></div></article>)}</div></Container></section>
 
     <section className="home-facilities"><Container><SectionHeading eyebrow="Our clinic" title="A thoughtful place to heal" description="Modern theatres, calm recovery spaces and diagnostic facilities, all designed around your wellbeing." /><div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{featuredFacilities.map((facility)=><FacilityCard key={facility.slug} facility={facility} />)}</div><div className="mt-10"><Link href="/facilities" className="underlined-link">EXPLORE OUR FACILITIES <span>↗</span></Link></div></Container></section>
+
+    <section className="home-location" aria-labelledby="location-title">
+      <Container>
+        <span className="section-overline">FIND US IN LOKOJA</span>
+        <h2 id="location-title">A trusted hospital in Lokoja, Kogi State</h2>
+        <p>
+          Solucio Clinic is a consultant-led private hospital in {site.city}, {site.region}, offering specialist
+          surgery, ophthalmology, obstetrics &amp; gynaecology, paediatric care and 24-hour emergency services to
+          families across Lokoja and Kogi State. Whether you need a specialist consultation or urgent care, our
+          teams are here for you, day and night.
+        </p>
+        <dl className="home-location__facts">
+          <div><dt>Address</dt><dd>{fullAddress}</dd></div>
+          <div><dt>Emergency</dt><dd><a href={site.phoneEmergencyHref}>{site.phoneEmergency}</a> · open 24 hours</dd></div>
+          <div><dt>Consultations</dt><dd>Monday–Saturday · 8am–8pm</dd></div>
+        </dl>
+        <div className="home-location__actions">
+          <Link href="/book" className="reference-button">BOOK AN APPOINTMENT <span>↗</span></Link>
+          <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" className="reference-text-link">GET DIRECTIONS <span>↗</span></a>
+        </div>
+      </Container>
+    </section>
 
     <section className="closing-statement"><Container><span className="section-overline">HERE WHEN YOU NEED US</span><h2>Good care changes<br />everything.</h2><p>Let’s take the next step together.</p><Link href="/book" className="reference-button">BOOK AN APPOINTMENT <span>↗</span></Link></Container></section>
   </>;

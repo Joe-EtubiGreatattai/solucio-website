@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import Container from "@/components/Container";
 import SectionHeading from "@/components/SectionHeading";
 import TeamMemberCard from "@/components/TeamMemberCard";
 import CtaBanner from "@/components/CtaBanner";
 import { team } from "@/lib/data/team";
 
-export const metadata: Metadata = {
-  title: "Medical & Administrative Team — Solucio Clinic",
-  description:
-    "Meet the experienced medical directors, consultant surgeons, HMO desk officers, and nursing personnel at Solucio Clinic.",
-};
+export const metadata: Metadata = pageMeta({
+  title: 'Our Consultants & Care Team',
+  description: 'Meet the consultants and care team at Solucio Clinic in Lokoja — fellows of the National and West African Colleges of Surgeons caring for Kogi State.',
+  path: '/team',
+})
 
 export default function TeamPage() {
   return (

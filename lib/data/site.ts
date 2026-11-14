@@ -21,10 +21,10 @@ export const site = {
   regionCode: "KO",
   country: "Nigeria",
   countryCode: "NG",
-  streetAddress: "", // e.g. "12 IBB Way, Lokoja" — leave blank until confirmed; do not guess
+  streetAddress: "Ankuri Layout, Lokongoma Housing Estate, Kabba Road, opposite Phase 2",
   postalCode: "",
-  geo: { lat: 7.8023, lng: 6.7333 }, // Lokoja city centre — replace with the clinic's exact coordinates
-  mapUrl: "https://www.google.com/maps/search/?api=1&query=Solucio+Clinic+Lokoja",
+  geo: { lat: 7.7999819, lng: 6.7077727 }, // exact clinic coordinates from Google Maps
+  mapUrl: "https://www.google.com/maps/place/Solucio+clinic/@7.7999819,6.7077727,17z/data=!4m6!3m5!1s0x104f5fb5824b3a3f:0xfe7e9bb7154f0b91",
 
   phoneEmergency: "0706 681 9213",
   phoneEmergencyHref: "tel:07066819213",
